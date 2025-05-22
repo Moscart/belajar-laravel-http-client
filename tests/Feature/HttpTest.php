@@ -26,4 +26,15 @@ class HttpTest extends TestCase
         $response = Http::delete('https://eopiqnhh5vq8nju.m.pipedream.net');
         self::assertTrue($response->ok());
     }
+
+    public function testResponse()
+    {
+        $response = Http::get('https://eopiqnhh5vq8nju.m.pipedream.net');
+        self::assertEquals(200, $response->status());
+        self::assertNotNull($response->headers());
+        self::assertNotNull($response->body());
+
+        // $json =  $response->json();
+        // self::assertTrue($json['success']);
+    }
 }
