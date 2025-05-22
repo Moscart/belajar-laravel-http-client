@@ -58,4 +58,20 @@ class HttpTest extends TestCase
         ])->get('https://eopiqnhh5vq8nju.m.pipedream.net');
         self::assertTrue($response->ok());
     }
+
+    public function testCookies()
+    {
+        $response = Http::withQueryParameters([
+            'page' => 1,
+            'limit' => 10
+        ])->withHeaders([
+            'Accept' => 'application/json',
+            'X-Request-ID' => '123123123'
+        ])->withCookies([
+            'SessionId' => '123234345',
+            'UserId' => 'daniel'
+        ], 'https://eopiqnhh5vq8nju.m.pipedream.net')
+            ->get('https://eopiqnhh5vq8nju.m.pipedream.net');
+        self::assertTrue($response->ok());
+    }
 }
