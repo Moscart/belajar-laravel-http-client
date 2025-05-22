@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -128,5 +129,14 @@ class HttpTest extends TestCase
 
             ]);
         self::assertTrue($response->ok());
+    }
+
+    public function testThrowError()
+    {
+        $this->assertThrows(function () {
+            $response = Http::get('https://www.programmerzamannow.com/not-found');
+            self::assertEquals(404, $response->status());
+            $response->throw();
+        }, RequestException::class);
     }
 }
